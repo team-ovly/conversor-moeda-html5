@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>Conversor de Moeda</title>
+		<meta charset="utf-8" />
+		<link href="style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<form action="resultado.html" method="get" class="form-example">
+		  <div class="form-row">
+		    <label for="base">Moeda Base</label>
+		    <input type="text" name="moeda_base" id="base" value="EUR" readonly required>
+		  </div>
+		  <div class="form-row">
+		    <label for="destino">Moeda Destino</label>
+		    <select name="moeda_destino" id="destino">
+		    	<option value="BRL">Real</option>
+		    	<option value="USD">Dólar</option>
+		    	<option value="CAD">Dólar Canadense</option>
+		    </select>
+		  </div>
+		  <div class="form-example">
+		    <input type="submit" value="Converter">
+		  </div>
+		</form>
+	</body>
+</html>

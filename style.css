@@ -1,0 +1,20 @@
+form.form-row {
+    display: table;
+}
+
+div.form-row {
+    display: table-row;
+}
+
+label, input {
+    display: table-cell;
+    margin-bottom: 10px;
+}
+
+label {
+    padding-right: 10px;
+}
+
+span{
+	font-weight: bold;
+}
