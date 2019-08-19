@@ -4,22 +4,28 @@
 		<meta charset="utf-8" />
 		<link href="style.css" rel="stylesheet" />
 		<script>
-		
+			
+			var url;
+			
 			function voltar(){
 				var resposta = confirm("Deseja voltar?");
 				if(resposta){
-					history.go(-1);
+					location.href = "index.html";
 				}
 			}
 			
 			window.onload = function(){
+				url = new URL(location.href);
 				chamarAPI();
 			}
 			
 	
 			function chamarAPI(){
-				const endpoint = "https://api.exchangeratesapi.io/latest";
+				var dCotacao = url.searchParams.get("data_cotação")
+				const domain = "https://api.exchangeratesapi.io/";
+				var endpoint = domain + (dCotacao?  dCotacao : "latest");
 				var request = new XMLHttpRequest();
+				
 				request.addEventListener("load", respostaAPI);
 				request.open("GET", endpoint);
 				request.send();
@@ -27,20 +33,26 @@
 			
 			function respostaAPI(){
 				var oResposta = JSON.parse(this.responseText);
-				var url = new URL(location.href);
+				
 				var sMoedaBase = url.searchParams.get("moeda_base");
 				var sMoedaDestino = url.searchParams.get("moeda_destino");
 				var fValorDestino = parseFloat(oResposta.rates[sMoedaDestino]).toFixed(2);
+				var dCotacao = oResposta.date;
+				
 				document.querySelector("#valor_destino").innerText = fValorDestino;
 				document.querySelector("#moeda_destino").innerText = sMoedaDestino;
+				document.querySelector("#data_cotacao").innerText = dCotacao;
+				
 			}
 		</script>
 	</head>
 	<body>
 		<p>1 
 			<span id="moeda_base">EUR</span> 
-			é igual a 
+			equivaleu a
 			<span id="valor_destino"></span> <span id="moeda_destino"></span>
+			no dia 
+			<span id="data_cotacao"></span>
 		</p>
 		<button type="button" onclick="voltar()">
 		    Voltar

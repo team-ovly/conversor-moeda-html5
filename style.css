@@ -6,7 +6,7 @@ div.form-row {
     display: table-row;
 }
 
-label, input {
+label, input, select {
     display: table-cell;
     margin-bottom: 10px;
 }
