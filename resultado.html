@@ -4,7 +4,9 @@
 		<meta charset="utf-8" />
 		<link href="style.css" rel="stylesheet" />
 		<script>
-		
+			
+			var url;
+			
 			function voltar(){
 				var resposta = confirm("Deseja voltar?");
 				if(resposta){
@@ -13,6 +15,7 @@
 			}
 			
 			window.onload = function(){
+				url = new URL(location.href);
 				chamarAPI();
 			}
 			
@@ -29,10 +32,26 @@
 				var oResposta = JSON.parse(this.responseText);
 				var url = new URL(location.href);
 				var sMoedaBase = url.searchParams.get("moeda_base");
-				var sMoedaDestino = url.searchParams.get("moeda_destino");
-				var fValorDestino = parseFloat(oResposta.rates[sMoedaDestino]).toFixed(2);
-				document.querySelector("#valor_destino").innerText = fValorDestino;
-				document.querySelector("#moeda_destino").innerText = sMoedaDestino;
+				var aMoedaDestino = url.searchParams.getAll("moeda_destino");
+				
+				aMoedaDestino.forEach(function(sMoedaDestino){
+					
+					if ('content' in document.createElement('template')) {
+						
+					    var t = document.querySelector('#linha');
+					    var tb = document.querySelector("tbody");
+					    var clone = document.importNode(t.content, true);
+					    td = clone.querySelectorAll("td");
+						var fValorDestino = parseFloat(oResposta.rates[sMoedaDestino]).toFixed(2);;
+					    td[0].textContent = fValorDestino;
+					    td[1].textContent = sMoedaDestino;
+					    
+					    tb.appendChild(clone);
+				
+					}
+
+				});
+	
 			}
 		</script>
 	</head>
@@ -42,6 +61,29 @@
 			é igual a 
 			<span id="valor_destino"></span> <span id="moeda_destino"></span>
 		</p>
+		
+		<table id="tabela">
+		  <thead>
+		    <tr>
+		      <td>Valor</td>
+		      <td>Moeda</td>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <!-- existing data could optionally be included here -->
+		  </tbody>
+		  <tbody>
+		   
+		  </tbody>
+		</table>
+
+		<template id="linha">
+		  <tr>
+		    <td class="record"></td>
+		    <td></td>
+		  </tr>
+		</template> 
+		
 		<button type="button" onclick="voltar()">
 		    Voltar
 		</button>
