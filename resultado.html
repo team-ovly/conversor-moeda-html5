@@ -5,6 +5,8 @@
 		<link href="style.css" rel="stylesheet" />
 		<script>
 		
+			var url;
+		
 			function voltar(){
 				var resposta = confirm("Deseja voltar?");
 				if(resposta){
@@ -13,15 +15,17 @@
 			}
 			
 			window.onload = function(){
+				url = new URL(location.href);
 				chamarAPI();
 			}
 			
 	
 			function chamarAPI(){
 				const endpoint = "https://api.exchangeratesapi.io/latest";
+				var path = endpoint + "?base=" + url.searchParams.get("moeda_base");
 				var request = new XMLHttpRequest();
 				request.addEventListener("load", respostaAPI);
-				request.open("GET", endpoint);
+				request.open("GET", path);
 				request.send();
 			}
 			
@@ -31,6 +35,7 @@
 				var sMoedaBase = url.searchParams.get("moeda_base");
 				var sMoedaDestino = url.searchParams.get("moeda_destino");
 				var fValorDestino = parseFloat(oResposta.rates[sMoedaDestino]).toFixed(2);
+				document.querySelector("#moeda_base").innerText = sMoedaBase;
 				document.querySelector("#valor_destino").innerText = fValorDestino;
 				document.querySelector("#moeda_destino").innerText = sMoedaDestino;
 			}
@@ -38,7 +43,7 @@
 	</head>
 	<body>
 		<p>1 
-			<span id="moeda_base">EUR</span> 
+			<span id="moeda_base"></span> 
 			é igual a 
 			<span id="valor_destino"></span> <span id="moeda_destino"></span>
 		</p>
