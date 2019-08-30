@@ -4,9 +4,9 @@
 		<meta charset="utf-8" />
 		<link href="style.css" rel="stylesheet" />
 		<script>
-			
+
 			var url;
-			
+
 			function voltar(){
 				var resposta = confirm("Deseja voltar?");
 				if(resposta){
@@ -24,10 +24,11 @@
 				var dCotacao = url.searchParams.get("data_cotação")
 				const domain = "https://api.exchangeratesapi.io/";
 				var endpoint = domain + (dCotacao?  dCotacao : "latest");
+				var path = endpoint + "?base=" + url.searchParams.get("moeda_base");
 				var request = new XMLHttpRequest();
 				
 				request.addEventListener("load", respostaAPI);
-				request.open("GET", endpoint);
+				request.open("GET", path);
 				request.send();
 			}
 			
@@ -39,6 +40,7 @@
 				var fValorDestino = parseFloat(oResposta.rates[sMoedaDestino]).toFixed(2);
 				var dCotacao = oResposta.date;
 				
+				document.querySelector("#moeda_base").innerText = sMoedaBase;
 				document.querySelector("#valor_destino").innerText = fValorDestino;
 				document.querySelector("#moeda_destino").innerText = sMoedaDestino;
 				document.querySelector("#data_cotacao").innerText = dCotacao;
