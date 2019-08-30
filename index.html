@@ -2,29 +2,62 @@
 	<head>
 		<title>Conversor de Moeda</title>
 		<meta charset="utf-8" />
-		<link href="style.css" rel="stylesheet" />
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	</head>
 	<body>
-		<form action="resultado.html" method="get" class="form-example">
-		  <div class="form-row">
-		    <label for="base">Moeda Base</label>
-		    <input type="text" name="moeda_base" id="base" value="EUR" required>
-		  </div>
-		  <div class="form-row">
-		    <label for="destino">Moeda Destino</label>
-		    <select multiple name="moeda_destino" id="destino">
-		    	<option value="BRL">Real</option>
-		    	<option value="USD">Dólar</option>
-		    	<option value="CAD">Dólar Canadense</option>
-		    </select>
-		  </div>
-		  <div class="form-row">
-		    <label for="data">Data Cotação</label>
-		    <input type="date" name="data_cotação" id="data">
-		  </div>
-		  <div class="form-example">
-		    <input type="submit" value="Converter">
-		  </div>
+		
+		<form action="resultado.html" method="get" >
+			
+			<div class="form-group">
+				<label for="base">Moeda Base</label>
+		    	<input class="form-control" type="text" name="moeda_origem" id="moeda_origem" value="EUR" required="true">
+			</div>
+			
+			<div class="form-group">
+				<label for="destino">Moeda Destino</label>
+			    <select class="custom-select"  name="moeda_destino" id="moeda_destino" multiple required="true">
+			    	<!--<option value="BRL">Real</option>-->
+			    	<!--<option value="USD">Dólar</option>-->
+			    	<!--<option value="CAD">Dólar Canadense</option>-->
+			    </select>
+				
+			</div>
+			
+			<div class="form-group">
+			    <label for="data">Data Cotação</label>
+			    <input class="form-control" type="date" name="data_cotacao" id="data_cotacao">
+			</div>
+				
+			<button type="button" class="btn btn-primary" onclick="ovly.conversor.chamarAPI()">Converter</button>
+			
 		</form>
+		
+		<div>
+			<p class="lead">
+				No dia 
+				<span id="resultado_data_cotacao"></span>,
+				1
+				<span id="resultado_moeda_base"></span> 
+				equivaleu a
+			</p>
+			
+			<table class="table" id="tabela">
+			  <thead>
+			    <tr>
+			      <td>Valor</td>
+			      <td>Moeda</td>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  </tbody>
+			</table>
+
+		</div>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="main.js" ></script>
 	</body>
 </html>
