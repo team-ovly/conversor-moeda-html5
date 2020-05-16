@@ -1,0 +1,10 @@
+#
+#Sat May 16 16:04:10 UTC 2020
+Name=ExchangeRates
+URL=https\://api.exchangeratesapi.io
+ProxyType=Internet
+Type=HTTP
+WebIDEEnabled=true
+Authentication=NoAuthentication
+WebIDEUsage=odata_abap,dev_abap, ui5_execute_abap,odata_xs,odata_gen
+Description=Exchange Rates API
